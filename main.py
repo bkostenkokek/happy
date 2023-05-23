@@ -39,8 +39,9 @@ async def hello(message: types.Message):
                          reply_markup=markup)
 
 
-
-
+@dp.message_handler(content_types=['web_app_data'])
+async def web_app(message: types.Message):
+    await message.answer(message.web_app_data.data)
 # @dp.message_handler(commands=['add_birthday'])
 # async def hello(message: types.Message):
 #     await message.answer(f'{message.from_user.id}  ку ')

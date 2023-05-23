@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="static/style.css">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Form HB</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="app.js"></script>
+    <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+
+    </style>
 </head>
 <body>
-
-  <div class="container">
-    <div class="inner">
-      <div class="item">
-        <p>Тестовое сообщение</p>
+<div>
+    <form id="form">
+        <input type="text" id="name" placeholder="Имя">
+        <input type="date" id="date" placeholder="Дата">
         <button class="btn" id="btn">Отправить</button>
-      </div>
-    </div>
-  </div>
-
-
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="static/app.js"></script>
+    </form>
+</div>
 </body>
 </html>

@@ -1,0 +1,11 @@
+# IntelliJ project files and settings
+*.iml
+.idea
+env
+venv
+
+# Other files we don't want to see in our SCM
+*.pyc
+*.swp
+*.db
+*.env

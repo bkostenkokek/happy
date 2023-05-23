@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <title>Form HB</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+
+    .form-container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="date"],
+    .form-container input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      background-color: #333;
+      color: white;
+    }
+
+    .form-container input[type="submit"] {
+      background-color: #4CAF50;
+      cursor: pointer;
+    }
+
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <form>
+        <input type="text" name="name" placeholder="Имя">
+        <input type="date" name="date" placeholder="Дата">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>

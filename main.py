@@ -34,7 +34,7 @@ class FormState(StatesGroup):
 async def hello(message: types.Message):
     await db.init_user(message.from_user.id, message.from_user.username)
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.KeyboardButton("add_birthday", web_app=WebAppInfo(url="index.html")))
+    markup.add(types.KeyboardButton("add_birthday", web_app=WebAppInfo(url="https://bkostenkokek.github.io/happy/")))
     await message.answer(f'Привіт {message.from_user.username}! \nБот створений для слідкування за днями народження!',
                          reply_markup=markup)
 

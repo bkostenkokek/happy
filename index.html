@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Form HB</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <style>
     body {
       background-color: black;
@@ -37,10 +37,27 @@
 <body>
 <div class="form-container">
     <form>
-        <input type="text" name="name" placeholder="Имя">
-        <input type="date" name="date" placeholder="Дата">
-        <input type="submit" value="Submit">
+        <input type="text" id="name" name="name" placeholder="Имя">
+        <input type="date" id="data" name="date" placeholder="Дата">
+        <button id="submit" type="submit">Submit</button>
     </form>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        order.addEventListener("click", () => {
+            let name = document.getElementById("name").value;
+            let name = document.getElementById("data").value;
+        }
+
+        let data = {
+            name: name,
+            date: date
+        }
+        tg.sendData(JSON.stringify(data));
+        tg.close();
+    </script>
 </div>
 </body>
 </html>

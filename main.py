@@ -32,8 +32,7 @@ class FormState(StatesGroup):
 async def hello(message: types.Message):
     await db.init_user(message.from_user.id, message.from_user.username)
 
-    await message.answer(f'Привіт {message.from_user.username}! \nБот створений для слідкування за днями народження!',
-                         reply_markup=markup)
+    await message.answer(f'Привіт {message.from_user.username}!', reply_markup=markup)
 
 
 @dp.message_handler(content_types=['web_app_data'])

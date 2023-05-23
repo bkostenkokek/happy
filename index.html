@@ -26,37 +26,18 @@
       color: white;
     }
 
-    .form-container input[type="submit"] {
-      background-color: #4CAF50;
-      cursor: pointer;
-    }
 
     </style>
 </head>
 <body>
-<div class="form-container">
-    <form>
-        <input type="text" id="name" placeholder="Имя">
-        <input type="date" id="date" placeholder="Дата">
-        <button class="btn" id="btn">Отправить</button>
-    </form>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        let btn = document.getElementById("btn");
+<div></div>
+<form id="form">
+    <input type="text" id="name" placeholder="Имя">
+    <input type="date" id="date" placeholder="Дата">
+    <button class="btn" id="btn">Отправить</button>
+</form>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="static/app.js"></script>
 
-        btn.addEventListener("click", () => {
-            let name = document.getElementById("name").value;
-            let date = document.getElementById("date").value;
-            let user_data = {
-                name: name,
-                date: date
-            }
-            tg.sendData(JSON.stringify(user_data));
-            tg.close();
-        }
-    </script>
-</div>
 </body>
 </html>

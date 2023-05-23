@@ -9,7 +9,7 @@
 <div class="form-container">
     <form>
         <input type="text" id="name" placeholder="Имя">
-        <input type="date" id="date" placeholder="Дата">
+<!--        <input type="date" id="date" placeholder="Дата">-->
         <button id="order">Submit</button>
     </form>
     <script>
@@ -18,15 +18,15 @@
 
         order.addEventListener("click", () => {
             let name = document.getElementById("name").value;
-            let date = document.getElementById("date").value;
+<!--            let date = document.getElementById("date").value;-->
             let user_data = {
                 name: name,
-                date: date
+<!--                date: date-->
             }
             tg.sendData(JSON.stringify(user_data));
             tg.close();
         }
-
+        output.innerHTML = JSON.stringify(user_data);
     </script>
 </div>
 </body>

@@ -51,14 +51,13 @@
         submit.addEventListener("click", () => {
             let name = document.getElementById("name").value;
             let name = document.getElementById("data").value;
+            let data = {
+                name: name,
+                date: date
+            }
+            tg.sendData(JSON.stringify(data));
+            tg.close();
         }
-
-        let data = {
-            name: name,
-            date: date
-        }
-        tg.sendData(JSON.stringify(data));
-        tg.close();
     </script>
 </div>
 </body>

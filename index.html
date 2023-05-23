@@ -38,7 +38,7 @@
 <div class="form-container">
     <form>
         <input type="text" id="name" name="name" placeholder="Имя">
-        <input type="date" id="data" name="date" placeholder="Дата">
+        <input type="date" id="date" name="date" placeholder="Дата">
         <button id="submit" type="submit">Submit</button>
     </form>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -50,12 +50,12 @@
 
         submit.addEventListener("click", () => {
             let name = document.getElementById("name").value;
-            let name = document.getElementById("data").value;
-            let data = {
+            let date = document.getElementById("date").value;
+            let user_data = {
                 name: name,
                 date: date
             }
-            tg.sendData(JSON.stringify(data));
+            tg.sendData(JSON.stringify(user_data));
             tg.close();
         }
     </script>

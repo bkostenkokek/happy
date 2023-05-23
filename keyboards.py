@@ -5,5 +5,5 @@ key.add('').add('Показати Дні народження').add('Видат�
 
 markup = ReplyKeyboardMarkup(resize_keyboard=True)
 markup.add(
-    KeyboardButton("Додати День народження", web_app=WebAppInfo(url="https://bkostenkokek.github.io/happy/"))).add(
+    KeyboardButton("Додати День народження", web_app=WebAppInfo(url="https://bkostenkokek.github.io/happy"))).add(
     'Показати Дні народження').add('Видатили День народження')

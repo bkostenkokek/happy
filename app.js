@@ -13,9 +13,8 @@ form.addEventListener("submit", (ev) => {
     name: name,
     date: date,
   };
-  console.log({ user_data });
+
   tg.sendData(JSON.stringify(user_data));
-  tg.sendData(name);
-  tg.sendData(date);
+
   tg.close();
 });

@@ -37,7 +37,12 @@ async def hello(message: types.Message):
 
 @dp.message_handler(content_types=['web_app_data'])
 async def web_app(message: types.Message):
-    await message.answer(message.web_app_data.data)
+    data = await message.answer(message.web_app_data.data)
+    # await db.insert_data(telegram_id=data['chat']['id'],
+    #                      username=data['chat']['username'],
+    #                      name=,
+    #                      date=)
+    print(data)
 
 
 if __name__ == "__main__":

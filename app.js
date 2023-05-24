@@ -1,16 +1,21 @@
-let tg = window.Telegram.WebApp;
+const tg = window.Telegram.WebApp;
 tg.expand();
-let btn = document.getElementById("btn");
 
-btn.addEventListener("click", function() => {
-    let name = document.getElementById("name").value;
-    let date = document.getElementById("date").value;
-    let user_data = {
-        name: name,
-        date: date
-    }
-    tg.sendData(JSON.stringify(user_data));
-    tg.sendData(name);
-    tg.sendData(date);
-    tg.close();
-}
+const form = document.getElementById("form");
+
+form.addEventListener("submit", (ev) => {
+  // убрать page refresh
+  ev.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const date = document.getElementById("date").value;
+  const user_data = {
+    name: name,
+    date: date,
+  };
+  console.log({ user_data });
+  tg.sendData(JSON.stringify(user_data));
+  tg.sendData(name);
+  tg.sendData(date);
+  tg.close();
+});

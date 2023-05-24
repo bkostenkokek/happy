@@ -4,6 +4,9 @@ import logging
 
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher.filters.state import State, StatesGroup
+from aiogram.dispatcher import FSMContext
 import database as db
 from keyboards import markup
 
@@ -16,6 +19,11 @@ TOKEN = os.environ.get('TOKEN')
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot=bot)
+storage = MemoryStorage()
+
+
+class DeleteStatesGroup(StatesGroup):
+    entry_id = State()
 
 
 async def on_startup(_):
@@ -44,20 +52,20 @@ async def birthday_handler(message: types.Message):
     await message.answer(f"Дні народження:\n{birthdays}")
 
 
-@dp.message_handler(text='Видатили День народження')
-async def delete_command(message: types.Message):
-    q = await message.reply("Введите ID записи, которую вы хотите удалить:")
-    print(q)
+@dp.message_handler(text="Видатили День народження")
+async def birthday_handler(message: types.Message):
+    await message.reply("Введите ID записи, которую вы хотите удалить:")
+    await DeleteStatesGroup.entry_id.set()
 
 
-# @dp.message_handler(filters=types.ContentType.TEXT)
-# async def handle_number(message: types.Message):
-#     try:
-#         birthday_id = int(message.text)
-#         await db.delete_birthday(birthday_id)
-#         await message.reply("Запись успешно удалена!")
-#     except ValueError:
-#         await message.reply("Некорректный ввод. Введите ID записи числом.")
+@dp.message_handler(content_types=['text'], state=DeleteStatesGroup.entry_id)
+async def delete_entry_handler(message: types.Message, state: FSMContext):
+    async with state.proxy() as data:
+        data['entry_id'] = message
+        print(data)
+    await state.finish()
+    await message.reply("Удалено")
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

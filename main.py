@@ -1,7 +1,8 @@
 import os
+import json
 import logging
+
 from dotenv import load_dotenv
-from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram import Bot, Dispatcher, executor, types
 import database as db
 from keyboards import markup
@@ -22,28 +23,41 @@ async def on_startup(_):
     logger.info('База даних створена')
 
 
-class FormState(StatesGroup):
-    name = State()
-    age = State()
-    gender = State()
-
-
 @dp.message_handler(commands=['start'])
 async def hello(message: types.Message):
     await db.init_user(message.from_user.id, message.from_user.username)
-
     await message.answer(f'Привіт {message.from_user.username}!', reply_markup=markup)
 
 
 @dp.message_handler(content_types=['web_app_data'])
 async def web_app(message: types.Message):
-    data = await message.answer(message.web_app_data.data)
-    # await db.insert_data(telegram_id=data['chat']['id'],
-    #                      username=data['chat']['username'],
-    #                      name=,
-    #                      date=)
-    print(data)
+    data = message.web_app_data.data
+    await db.insert_data(telegram_id=message.from_user.id,
+                         name=json.loads(data)['name'],
+                         date=json.loads(data)['date'])
 
+
+@dp.message_handler(text="Побачити дні народження")
+async def birthday_handler(message: types.Message):
+    user_id = message.from_user.id
+    birthdays = db.get_birthdays_by_telegram_id(user_id)
+    await message.answer(f"Дні народження:\n{birthdays}")
+
+
+@dp.message_handler(text='Видатили День народження')
+async def delete_command(message: types.Message):
+    q = await message.reply("Введите ID записи, которую вы хотите удалить:")
+    print(q)
+
+
+# @dp.message_handler(filters=types.ContentType.TEXT)
+# async def handle_number(message: types.Message):
+#     try:
+#         birthday_id = int(message.text)
+#         await db.delete_birthday(birthday_id)
+#         await message.reply("Запись успешно удалена!")
+#     except ValueError:
+#         await message.reply("Некорректный ввод. Введите ID записи числом.")
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

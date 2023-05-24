@@ -9,6 +9,13 @@ form.addEventListener("submit", (ev) => {
 
   const name = document.getElementById("name").value;
   const date = document.getElementById("date").value;
+
+    // Проверка на пустые поля
+  if (name.trim() === "" || date.trim() === "") {
+    alert("Пожалуйста, заполните все поля.");
+    return;
+  }
+
   const user_data = {
     name: name,
     date: date,

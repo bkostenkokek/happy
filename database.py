@@ -24,20 +24,24 @@ async def init_user(user_id, username):
         db.commit()
 
 
-# async def add_birthday(telegram_id, name, date):
-#     cur.execute("""INSERT INTO birthdays(user_id, name, date)
-#                    SELECT id, ?, ?
-#                    FROM users
-#                    WHERE telegram_id = ?""", (name, date, telegram_id))
-#     db.commit()
+async def insert_data(telegram_id, name, date):
+    user = cur.execute(f"SELECT * FROM users WHERE telegram_id == {telegram_id}").fetchone()
+    cur.execute("INSERT INTO birthdays (user_id, name, date) VALUES (?, ?, ?)", (user[0], name, date))
+    db.commit()
 
 
-async def insert_data(telegram_id, username, name, date):
-    # Записываем данные в таблицу "users"
-    cur.execute("INSERT INTO users (telegram_id, username) VALUES (?, ?)", (telegram_id, username))
-    user_id = cur.lastrowid  # Получаем ID новой записи в таблице "users"
+def get_birthdays_by_telegram_id(telegram_id):
+    cur.execute("""
+            SELECT birthdays.id, name, date FROM birthdays
+            JOIN users ON birthdays.user_id = users.id
+            WHERE users.telegram_id = ?
+        """, (telegram_id,))
+    birthdays = cur.fetchall()
+    birthdays_str = '\n'.join(f'{id}| {name}: {date}' for id, name, date in birthdays)
 
-    # Записываем данные в таблицу "birthdays"
-    cur.execute("INSERT INTO birthdays (user_id, name, date) VALUES (?, ?, ?)", (user_id, name, date))
+    return birthdays_str
 
+
+async def delete_birthday(birthday_id):
+    cur.execute("DELETE FROM birthdays WHERE id = ?", (birthday_id,))
     db.commit()
